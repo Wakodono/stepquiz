@@ -1,12 +1,13 @@
 import './App.css';
 import { useState, useEffect } from 'react'; 
 import Question from './components/Question';
+import Quiz from './components/Quiz';
 import quizQuestions from './api/quizQuestions';
 import stepOutput from './StepOutput.json';
 
 function App() {
   const question = stepOutput.data.getStep
-  const [state, setstate] = useState({
+  const [state, setState] = useState({
     counter: 0,
     questionId: 1,
     question: '',
@@ -51,9 +52,16 @@ function App() {
   return (
     <div className="App">
       <div className='App-header'>
-        <h2>Step Quiz</h2>
-        <Question content={question.stepQuiz.questionText} />
+        <h2>React Quiz</h2>
       </div>
+      <Quiz 
+        answer={state.answer}
+        answerOptions={state.answerOptions}
+        questionId={state.questionId}
+        question={state.question}
+        questionTotal={quizQuestions.length}
+        onAnswerSelected={(e) => handleAnswerSelected(e)}
+      />
     </div>
   );
 }
