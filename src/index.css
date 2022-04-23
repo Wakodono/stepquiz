@@ -1,6 +1,5 @@
 body {
   margin: 0;
-  padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -15,128 +14,103 @@ code {
 }
 
 * {
-  box-sizing: border-box;
+  font-family: "Verdana", cursive, sans-serif;
+  color: #ffffff;
 }
 
-.container {
+body {
+  background-color: #7cc6fe;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.app {
+  background-color: #252d4a;
+  width: 450px;
+  min-height: 200px;
+  height: min-content;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 10px 10px 42px 0px rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.score-section {
+  display: flex;
+  font-size: 24px;
+  align-items: center;
+}
+
+/* QUESTION/TIMER/LEFT SECTION */
+.question-section {
+  width: 100%;
   position: relative;
-  max-width: 800px;
-  margin: 0 auto;
-  background: #fff;
-  border-radius: 5px;
 }
 
-@media (min-width: 768px) {
-  .container {
-    margin: 2.5rem auto;
-  }
+.question-count {
+  margin-bottom: 20px;
 }
 
-/* Result Component */
-.result {
-  padding: 1.5rem 2.5rem;
+.question-count span {
+  font-size: 28px;
 }
 
-/* Quiz Component */
-.answerOptions {
-  margin: 0;
-  padding: 0;
-  list-style: none;
+.question-text {
+  margin-bottom: 12px;
 }
 
-/* QuestionCount Component */
-.questionCount {
-  padding: 1.5rem 2.5rem 0;
-  font-size: 14px;
+.timer-text {
+  background: rgb(230, 153, 12);
+  padding: 15px;
+  margin-top: 20px;
+  margin-right: 20px;
+  border: 5px solid rgb(255, 189, 67);
+  border-radius: 15px;
+  text-align: center;
 }
 
-/* Question Component */
-.question {
-  margin: 0;
-  padding: 0.5rem 2.5rem 1.5rem 2.5rem;
+/* ANSWERS/RIGHT SECTION */
+.answer-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-/* AnswerOption Component */
-.answerOption {
-  border-top: 1px solid #eee;
-}
-
-.answerOption:hover {
-  background-color: #eefbfe;
-}
-
-.radioCustomButton {
-  position: absolute;
-  width: auto;
-  opacity: 0;
-}
-
-.radioCustomButton,
-.radioCustomLabel {
-  display: inline-block;
-  vertical-align: middle;
+button {
+  width: 100%;
+  font-size: 16px;
+  color: #ffffff;
+  background-color: #252d4a;
+  border-radius: 15px;
+  display: flex;
+  padding: 5px;
+  justify-content: flex-start;
+  align-items: center;
+  border: 5px solid #234668;
   cursor: pointer;
 }
 
-.radioCustomLabel {
-  position: relative;
-  width: 100%;
-  margin: 0;
-  padding: 1.5rem 2.5rem 1.5rem 5rem;
-  font-size: 16px;
-  line-height: 1.5;
+.correct {
+  background-color: #2f922f;
 }
 
-.radioCustomButton ~ .radioCustomLabel:before {
-  position: absolute;
-  top: 20px;
-  left: 38px;
-  width: 28px;
-  height: 28px;
-  content: '';
-  display: inline-block;
-  vertical-align: middle;
-  background: #fff;
-  border: 1px solid #bbb;
-  border-radius: 50%;
-  transition: all 0.3s;
+.incorrect {
+  background-color: #ff3333;
 }
 
-.radioCustomButton:checked ~ .radioCustomLabel:before {
-  content: '';
-  /* background: #8bc53f url(./svg/icon-check.svg) no-repeat; */
-  background-size: 27px;
-  border-color: #8bc53f;
+button:hover {
+  background-color: #010202;
 }
 
-/* Animation */
-.fade-enter {
-  opacity: 0;
+button:focus {
+  outline: none;
 }
 
-.fade-enter.fade-enter-active {
-  opacity: 1;
-  transition: opacity 0.5s ease-in-out 0.3s;
+button svg {
+  margin-right: 5px;
 }
 
-.fade-leave {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  opacity: 1;
-}
-
-.fade-leave.fade-leave-active {
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out;
-}
-
-.fade-appear {
-  opacity: 0;
-}
-
-.fade-appear.fade-appear-active {
-  opacity: 1;
-  transition: opacity 0.5s ease-in-out;
-}
