@@ -98,20 +98,34 @@ function App() {
       setState({ result: 'Undetermined' });
     }
   }
+
+  const renderQuiz = () => {
+    return (
+      <Quiz
+        answer={state.answer}
+        answerOptions={state.answerOptions}
+        questionId={state.questionId}
+        questionTotal={quizQuestions.length}
+        question={state.question}
+        onAnswerSelected={handleAnswerSelected}
+      />
+    );
+  }
+
+  const renderResult = () => {
+    return (
+      <Result quizResult={state.result} />
+    );
+  }
   
   return (
     <div className="App">
       <div className='App-header'>
         <h2>React Quiz</h2>
       </div>
-      <Quiz 
-        answer={state.answer}
-        answerOptions={state.answerOptions}
-        questionId={state.questionId}
-        question={state.question}
-        questionTotal={quizQuestions.length}
-        onAnswerSelected={(e) => handleAnswerSelected(e)}
-      />
+      {
+        state.result ? renderResult() : renderQuiz()
+      }
     </div>
   );
 }
