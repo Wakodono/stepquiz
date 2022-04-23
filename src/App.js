@@ -19,13 +19,21 @@ const App = () => {
 		} else {
 			setShowScore(true);
 		}
+
 	};
+
+  const handleRestart = () => {
+    setCurrentQuestion(0)
+    setShowScore(false)
+    setScore(0)
+  }
 
   return (
     <div className='app'>
       {showScore ? (
         <div className="score-section">
           You scored {score} out of {questions.length}
+          <button onClick={() => handleRestart()} className="restart">Want a redo?</button>
         </div>
       ) : (
         <>
