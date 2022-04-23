@@ -4,7 +4,7 @@ import AnswerOption from './AnswerOption'
 import QuestionCount from './QuestionCount'
 
 const Quiz = (props) => {
-    const renderAnswerOptons = (key) => {
+    const renderAnswerOptions = (key) => {
         return (
             <AnswerOption
                 key={key.content}
