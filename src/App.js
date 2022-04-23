@@ -1,133 +1,55 @@
-import './App.css';
-import { useState, useEffect } from 'react';
-import update from 'react-addons-update' 
-import Question from './components/Question';
-import Quiz from './components/Quiz';
-import quizQuestions from './api/quizQuestions';
-import stepOutput from './StepOutput.json';
+import React from 'react'
+import { useState } from 'react'
+import { questions } from './api/questions'
 
-function App() {
-  const question = stepOutput.data.getStep
-  const [state, setState] = useState({
-    counter: 0,
-    questionId: 1,
-    question: '',
-    answerOptions: [],
-    answer: '',
-    answerCount: {
-      nintendo: 0,
-      microsoft: 0,
-      sony: 0,
-    },
-    result: ''
-  })
+const App = () => {
 
-  useEffect(() => {
-    const shuffleAnswerOptions = quizQuestions.map((question) => shuffleArray(question.answers))
-    setState({
-      question: quizQuestions[0].question,
-      answerOptions: shuffleAnswerOptions[0]
-    })
-  
-  }, [])
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+	const [showScore, setShowScore] = useState(false);
+	const [score, setScore] = useState(0);
 
-  const shuffleArray = (array) => {
-    let currentIndex = array.length, temporaryValue, randomIndex
+  const handleAnswerOptionClick = (isCorrect) => {
+		if (isCorrect) {
+			setScore(score + 1);
+		}
 
-    //while there remain elements to shuffle
-    while (0 !== currentIndex) {
-      //pick a remaining element
-      randomIndex = Math.floor(Math.random() * currentIndex)
-      currentIndex -= 1
+		const nextQuestion = currentQuestion + 1;
+		if (nextQuestion < questions.length) {
+			setCurrentQuestion(nextQuestion);
+		} else {
+			setShowScore(true);
+		}
+	};
 
-      //swap it with the current element
-      temporaryValue = array[currentIndex]
-      array[currentIndex] = array[randomIndex]
-      array[randomIndex] = temporaryValue
-    }
-
-    return array
-  }
-
-  const handleAnswerSelected = (event) => {
-    setUserAnswer(event.currentTarget.value);
-
-    if (state.questionId < quizQuestions.length) {
-      setTimeout(() => setNextQuestion(), 300);
-    } else {
-      setTimeout(() => setResults(getResults()), 300);
-    }
-  }
-
-  const setUserAnswer = (answer) => {
-    setState((state, props) => ({
-      answersCount: {
-        ...state.answersCount,
-        [answer]: (state.answersCount[answer] || 0) + 1
-      },
-      answer: answer
-    }));
-  }
-
-  const setNextQuestion = () => {
-    const counter = state.counter + 1;
-    const questionId = state.questionId + 1;
-
-    setState({
-      counter: counter,
-      questionId: questionId,
-      question: quizQuestions[counter].question,
-      answerOptions: quizQuestions[counter].answers,
-      answer: ''
-    });
-  }
-
-  const getResults = () => {
-    const answersCount = state.answersCount;
-    const answersCountKeys = Object.keys(answersCount);
-    const answersCountValues = answersCountKeys.map(key => answersCount[key]);
-    const maxAnswerCount = Math.max.apply(null, answersCountValues);
-
-    return answersCountKeys.filter(key => answersCount[key] === maxAnswerCount);
-  }
-
-  const setResults = (result) => {
-    if (result.length === 1) {
-      setState({ result: result[0] });
-    } else {
-      setState({ result: 'Undetermined' });
-    }
-  }
-
-  const renderQuiz = () => {
-    return (
-      <Quiz
-        answer={state.answer}
-        answerOptions={state.answerOptions}
-        questionId={state.questionId}
-        questionTotal={quizQuestions.length}
-        question={state.question}
-        onAnswerSelected={handleAnswerSelected}
-      />
-    );
-  }
-
-  const renderResult = () => {
-    return (
-      <Result quizResult={state.result} />
-    );
-  }
-  
   return (
-    <div className="App">
-      <div className='App-header'>
-        <h2>React Quiz</h2>
-      </div>
-      {
-        state.result ? renderResult() : renderQuiz()
-      }
+    <div className='app'>
+      {showScore ? (
+        <div className="score-section">
+          You scored {score} out of {questions.length}
+        </div>
+      ) : (
+        <>
+
+         <div className="question-section">
+           <div className="question-count">
+           <span>Question {currentQuestion + 1}</span>/{questions.length}
+           </div>
+           <div className="qustion-text">{questions[currentQuestion].questionText}</div>
+          </div>
+          <div className="answer-section">
+            {
+            
+              questions[currentQuestion].answerOptions.map((answerOption) => (
+                <button onClick={() => handleAnswerOptionClick(answerOption.isCorrect)}>{answerOption.answerText}</button>
+              ))
+            
+            }
+          </div>
+
+        </>
+      )}
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
