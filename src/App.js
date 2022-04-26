@@ -9,19 +9,20 @@ const App = () => {
 
   const questions = steps.data.getStep.stepQuiz;
 
-  const [currentQuestion, setCurrentQuestion] = useState(0);
   const [showScore, setShowScore] = useState(false);
   const [score, setScore] = useState(0);
 
   const handleAnswerOptionClick = (isCorrect) => {
+	  // add to score if the selected answer is correct
     if (isCorrect) {
       setScore(score + 1);
     }
+	// move to the next question || end the quiz
 
   };
 
   const handleRestart = () => {
-    setCurrentQuestion(0);
+	// restart the quiz
     setShowScore(false);
     setScore(0);
   };
@@ -30,6 +31,7 @@ const App = () => {
     <Container>
     	<Row>
     		<Col xs={6}>
+				{/* if quiz is complete render the score section and if not show the question section */}
     			<div className="app">
 			      {showScore ? (
 			        <div className="score-section">
@@ -46,6 +48,7 @@ const App = () => {
 			            </div>
 			          </div>
 			          <div className="answer-section">
+						  {/* try and make it possible for the user to select multiple answers */}
 			            {questions.answerOptions.map((answerOption, index) => (
 			              <button onClick={() => handleAnswerOptionClick(answerOption.isCorrect)} key={index}>
 			                {answerOption.answerText}
