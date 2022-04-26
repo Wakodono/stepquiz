@@ -3,13 +3,9 @@ import { useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import steps from "./StepOutput.json";
+import steps from "./api/StepOutput.json";
 
 const App = () => {
-//   const stepQuiz = steps.data.getStep.stepQuiz;
-//   Object.entries(stepQuiz)
-
-//   console.log(stepQuiz);
 
   const questions = steps.data.getStep.stepQuiz;
 
@@ -22,12 +18,6 @@ const App = () => {
       setScore(score + 1);
     }
 
-    // const nextQuestion = currentQuestion + 1;
-    // if (nextQuestion < questions.length) {
-    // 	setCurrentQuestion(nextQuestion);
-    // } else {
-    // 	setShowScore(true);
-    // }
   };
 
   const handleRestart = () => {
@@ -48,9 +38,6 @@ const App = () => {
 			      ) : (
 			        <>
 			          <div className="question-section">
-			            {/* <div className='question-count'>
-										<span>Question 1</span>/{questions.length + 1}
-									</div> */}
 			            <div className="question-text">
 			              <h3>{questions.questionText}</h3>
 			            </div>
